@@ -65,13 +65,8 @@ public class OrderService {
         List<OrderInfo> orderInfos =orderInfoMapper.selectOrderByPro(event.getId());
 
 
-        if(null==orderInfos||orderInfos.isEmpty()){
-            eyeMsg.setResult_msg(EyeMsg.FAIL_MSG);
-            eyeMsg.setResult_code(EyeMsg.FAIL);
-            eyeMsg.setPage_count(0);
-            eyeMsg.setPage_index(0);
-            return  eyeMsg;
-        }
+        if(null==orderInfos||orderInfos.isEmpty())
+            return new EyeMsg(EyeMsg.FAIL,EyeMsg.FAIL_MSG,0,0);
 
         //查询该用户的用户信息
         List<UserInfo> userInfos =userInfoMapper.selectUserByProId(event.getId());

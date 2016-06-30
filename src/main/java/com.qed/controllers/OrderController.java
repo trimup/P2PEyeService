@@ -3,6 +3,7 @@ package com.qed.controllers;
 import com.qed.common.BaseController;
 import com.qed.common.EyeMsg;
 import com.qed.event.EyeQueryInvestEvent;
+import com.qed.service.EyeAccountService;
 import com.qed.service.OrderService;
 
 import org.slf4j.Logger;
@@ -33,7 +34,8 @@ public class OrderController  extends BaseController {
     @Autowired
     private OrderService orderService;
 
-
+    @Autowired
+    private EyeAccountService eyeAccountService;
 
 
     @Cacheable
@@ -42,8 +44,10 @@ public class OrderController  extends BaseController {
 
         //对参数做限制
         if(event.orEmpty())
-            return new EyeMsg(EyeMsg.FAIL,"参数错误");
-
+            return new EyeMsg(EyeMsg.FAIL,EyeMsg.FAIL_MSG,0,0);
+        //检查token
+        if(!eyeAccountService.checkEyeToken(event.getToken()))
+            return new EyeMsg(EyeMsg.FAIL,EyeMsg.FAIL_MSG,0,0);
         EyeMsg msg =orderService.getOrderListByPro(event);
         return  msg;
     }

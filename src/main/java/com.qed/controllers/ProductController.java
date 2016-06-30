@@ -3,6 +3,7 @@ package com.qed.controllers;
 import com.qed.common.BaseController;
 import com.qed.common.EyeMsg;
 import com.qed.event.EyeQueryProductEvent;
+import com.qed.service.EyeAccountService;
 import com.qed.service.OrderService;
 import com.qed.service.ProductService;
 import org.slf4j.Logger;
@@ -33,6 +34,9 @@ public class ProductController  extends BaseController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private EyeAccountService eyeAccountService;
+
     //平台名称
     @Value("${PRODUCT_TYPE}")
     private String allProduct_type;
@@ -52,7 +56,10 @@ public class ProductController  extends BaseController {
 
         //对参数做限制
         if(event.orEmpty())
-            return new EyeMsg(EyeMsg.FAIL,"参数错误");
+            return new EyeMsg(EyeMsg.FAIL,EyeMsg.FAIL_MSG,0,0);
+        //检查token
+        if(!eyeAccountService.checkEyeToken(event.getToken()))
+            return new EyeMsg(EyeMsg.FAIL,EyeMsg.FAIL_MSG,0,0);
 
         event.setAllProduct_type(allProduct_type);
         event.setProduct_start_time(product_start_time);

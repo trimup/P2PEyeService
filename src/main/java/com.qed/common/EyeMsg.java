@@ -17,9 +17,11 @@ public class EyeMsg {
     private int page_index;
     private Object loans = "";
 
-    public EyeMsg(int i, String message) {
+    public EyeMsg(int i, String message,int page_count,int page_index) {
         this.result_code = i;
         this.result_msg = message;
+        this.page_count=page_count;
+        this.page_index=page_index;
     }
 
     public EyeMsg() {

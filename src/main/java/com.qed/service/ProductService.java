@@ -68,13 +68,8 @@ public class ProductService {
 
         //从数据库中查询出 企额贷平台中符合条件的项目
         List<ProductInfo>  qedProList  =productMapper.queryEyeProdcutInfo(event);
-        if(qedProList==null||qedProList.isEmpty()){
-            eyeMsg.setResult_msg(EyeMsg.FAIL_MSG);
-            eyeMsg.setResult_code(EyeMsg.FAIL);
-            eyeMsg.setPage_count(0);
-            eyeMsg.setPage_index(0);
-            return  eyeMsg;
-        }
+        if(qedProList==null||qedProList.isEmpty())
+            return new EyeMsg(EyeMsg.FAIL,EyeMsg.FAIL_MSG,0,0);
 
 
         //项目债权人 信息列表
