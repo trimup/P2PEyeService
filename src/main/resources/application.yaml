@@ -1,0 +1,139 @@
+#debug: true
+
+# PROFILES
+## dev | prod | test
+spring:
+  profiles.active: dev
+  main.show_banner: false
+  application.name: p2peye
+
+# EMBEDDED SERVER CONFIGURATION (ServerProperties)
+server:
+  port:  6262
+  session-timeout:  30
+#  context-path:
+  tomcat.max-threads:  0
+  tomcat.uri-encoding:  UTF-8
+#  undertow.accesslog.enabled: false
+#  undertow.accesslog.dir: target/logs
+#  undertow.accesslog.pattern: combined
+  compression.enabled: true
+  compression.min-response-size: 1
+
+
+# Connection url for the database "51qed"
+spring.datasource:
+  url:  jdbc:mysql://192.168.1.232:3306/51qed?zeroDateTimeBehavior=convertToNull
+#  url:  jdbc:mysql://192.168.1.232:3306/51qed?zeroDateTimeBehavior=convertToNull
+# Username and password
+  username :  samewayread
+  password :  sameway25@*&1
+#  username :  samewayjava
+#  password :  saMewAY1991@*&1
+  driverClassName :  net.sf.log4jdbc.DriverSpy
+# DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+#  name:  51qed # name of the data source
+  separator: ; # statement separator in SQL initialization scripts
+  max-active: 100 # Advanced configuration...
+  max-idle: 8
+  min-idle: 0
+  initial-size: 1
+  timeBetweenEvictionRunsMillis: 34000
+  minEvictableIdleTimeMillis: 55000
+  validationQuery: SELECT 1
+  validationInterval: 34
+  testOnBorrow: true
+  removeAbandoned: true
+  removeAbandonedTimeout: 233
+
+  test-on-borrow: false
+  test-on-return: false
+  jmx-enabled: false # Export JMX MBeans (if supported)
+
+#MultipartConfigElement
+multipart.maxFileSize: 5MB
+multipart.maxRequestSize: 5MB
+PLATFORM_NAME: 企额贷
+#项目url
+PRODUCT_URL: http://www.51qed.com/invest/detail-%d.html
+#提供给网络天眼的项目状态
+PRODUCT_TYPE:  101213,101160,103034,100072,103033
+#提供给网络天的 开始时间和截止时间
+PRODUCT_START_TIME : 2016-01-01
+PRODUCT_END_TIME : 2026-01-01
+EYE_ACCOUNT: 51qedeye
+
+allowed-origins:
+# LOGGING
+logging:
+#  path: /var/log
+  file: ${spring.application.name}.log
+#logging.config:  # location of config file (default classpath: logback.xml for logback)
+# levels for loggers, e.g. "logging.level.org.springframework: DEBUG" (TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF)
+#logging.level.org.springframework: DEBUG
+  level.com.qed: DEBUG
+  notify_code: 0
+ # level.org.mybatis: DEBUG
+---
+spring:
+  profiles: test
+
+# Connection url for the database "51qed"
+
+spring.datasource:
+  url:  jdbc:mysql://192.168.1.232:3306/51qed?zeroDateTimeBehavior=convertToNull
+
+##Username and password
+  username :  samewayjava
+  password :  saMewAY1991@*&1
+#spring.datasource:
+#  url:  jdbc:mysql://121.41.33.100:3306/51qed
+#
+## Username and password
+#  username :  root
+#  password :  sameway.com.cn
+
+# LOGGING
+logging:
+#logging.config:  # location of config file (default classpath: logback.xml for logback)
+# levels for loggers, e.g. "logging.level.org.springframework: DEBUG" (TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF)
+#logging.level.org.springframework: DEBUG
+  level.com.qed: DEBUG
+
+PLATFORM_NAME: 企额贷
+#项目url
+PRODUCT_URL: http://www.51qed.com/invest/detail-%d.html
+#提供给网络天眼的项目状态
+PRODUCT_TYPE:  101213,101160,103034,100072,103033
+#提供给网络天的 开始时间和截止时间
+PRODUCT_START_TIME : 2016-01-01
+PRODUCT_END_TIME : 2026-01-01
+#天眼账户
+EYE_ACCOUNT: 51qedeye
+---
+spring:
+  profiles: prod
+# Connection url for the database "51qed"
+spring.datasource:
+  url:  jdbc:mysql://10.168.234.100:3306/51qed?zeroDateTimeBehavior=convertToNull
+
+# Username and password
+  username :  samewayjava
+  password :  saMewAY1991@*&1
+
+# LOGGING
+logging:
+#logging.config:  # location of config file (default classpath: logback.xml for logback)
+# levels for loggers, e.g. "logging.level.org.springframework: DEBUG" (TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF)
+#logging.level.org.springframework: DEBUG
+  level.com.qed: INFO
+
+PLATFORM_NAME: 企额贷
+#项目url
+PRODUCT_URL: http://www.51qed.com/invest/detail-%d.html
+#提供给网络天眼的项目状态
+PRODUCT_TYPE:  101213,101160,103034,100072,103033
+#提供给网络天的 开始时间和截止时间
+PRODUCT_START_TIME : 2016-01-01
+PRODUCT_END_TIME : 2026-01-01
+
