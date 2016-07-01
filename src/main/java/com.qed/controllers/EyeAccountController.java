@@ -31,7 +31,7 @@ public class EyeAccountController {
 
     @Cacheable
     @RequestMapping(value = "/createToken", method = {RequestMethod.GET,RequestMethod.POST})
-    public EyeTokenMsg createToken(@RequestBody CreateEyeTokenEvent event) throws Exception {
+    public EyeTokenMsg createToken( CreateEyeTokenEvent event) throws Exception {
 
         //对参数做限制
         if(event.orEmpty())
