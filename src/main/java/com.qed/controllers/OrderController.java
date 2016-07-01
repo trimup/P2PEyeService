@@ -10,9 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 
@@ -39,8 +37,8 @@ public class OrderController  extends BaseController {
 
 
     @Cacheable
-    @RequestMapping(value = "/queryOrderByPro", method = RequestMethod.GET)
-    public EyeMsg queryOrderByPro(EyeQueryInvestEvent event){
+    @RequestMapping(value = "/queryOrderByPro",   method = {RequestMethod.POST,RequestMethod.GET})
+    public EyeMsg queryOrderByPro(@RequestBody EyeQueryInvestEvent event) throws Exception{
 
         //对参数做限制
         if(event.orEmpty())

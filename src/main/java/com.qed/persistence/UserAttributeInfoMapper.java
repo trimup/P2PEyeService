@@ -18,7 +18,7 @@ public interface UserAttributeInfoMapper {
 	@Select({"<script> SELECT DISTINCT user_tid,telephone,province,city,supplier FROM user_attribute_info WHERE user_tid in" +
 			"<foreach collection='list' item='item' index='index' open = '(' separator=',' close=')'>"+
 			"#{item.order_user_tid}"+
-			"</foreach> and (order_status_id=100565 OR order_status_id=100567 OR order_status_id=100617)  "+
+			"</foreach>  "+
 			" </script>"})
 	public List<UserAttributeInfo> getUserAttributeInfoById(List<OrderInfo> orderInfos);
 }

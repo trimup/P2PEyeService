@@ -80,18 +80,19 @@ spring:
 
 # Connection url for the database "51qed"
 
-spring.datasource:
-  url:  jdbc:mysql://192.168.1.232:3306/51qed?zeroDateTimeBehavior=convertToNull
-
-##Username and password
-  username :  samewayjava
-  password :  saMewAY1991@*&1
 #spring.datasource:
-#  url:  jdbc:mysql://121.41.33.100:3306/51qed
+#  url:  jdbc:mysql://192.168.1.232:3306/51qed?zeroDateTimeBehavior=convertToNull
 #
-## Username and password
-#  username :  root
-#  password :  sameway.com.cn
+#
+###Username and password
+#  username :  samewayjava
+#  password :  saMewAY1991@*&1
+
+spring.datasource:
+  url: jdbc:mysql://192.168.1.232:3306/51qed?zeroDateTimeBehavior=convertToNull
+# Username and password
+  username :  samewayread
+  password :  sameway25@*&1
 
 # LOGGING
 logging:

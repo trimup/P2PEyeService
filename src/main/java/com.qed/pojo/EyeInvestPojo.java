@@ -1,5 +1,7 @@
 package com.qed.pojo;
 
+import com.qed.utils.Base64;
+import com.qed.utils.DESUntil;
 import lombok.Data;
 
 /**
@@ -17,4 +19,12 @@ public class EyeInvestPojo {
     private  Double     account	     ;   //  Double	Yes	有效金额	投标金额实际生效部分(保留两位小数),请过滤掉投资金额小于10块的记录.
     private  String     status	     ;   //  String	No	投标状态	例如:成功、部分成功、失败.
     private  String     add_time	 ;   //  String	Yes	投标时间	格式如:2014-03-13 16:44:26.
+
+    /**
+     * 标的加密
+     * @return
+     */
+    public String getId(){
+        return Base64.encode(DESUntil.encrypt(id,"51qedqwer@sameway"));
+    }
 }

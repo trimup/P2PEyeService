@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,8 +52,8 @@ public class ProductController  extends BaseController {
 
 
     @Cacheable
-    @RequestMapping(value = "/queryProduct", method = RequestMethod.GET)
-    public EyeMsg queryProdcut(EyeQueryProductEvent event){
+    @RequestMapping(value = "/queryProduct", method = {RequestMethod.POST,RequestMethod.GET})
+    public EyeMsg queryProdcut(@RequestBody EyeQueryProductEvent event){
 
         //对参数做限制
         if(event.orEmpty())

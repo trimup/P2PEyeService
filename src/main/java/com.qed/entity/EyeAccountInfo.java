@@ -2,7 +2,7 @@ package com.qed.entity;
 
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by trimup on 2016/6/30.
@@ -15,4 +15,5 @@ public class EyeAccountInfo {
     private String  password   ;  // RCHAR(128)  COMMENT '帐号密码',
     private String  token     ;   // AR(128)  COMMENT 'token',
     private Date update_time ; //     TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'token 更新时间',
+
 }

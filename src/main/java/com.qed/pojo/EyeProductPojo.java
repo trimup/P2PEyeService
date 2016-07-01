@@ -1,5 +1,7 @@
 package com.qed.pojo;
 
+import com.qed.utils.Base64;
+import com.qed.utils.DESUntil;
 import lombok.Data;
 
 /**
@@ -30,4 +32,15 @@ public class EyeProductPojo {
             private String end_time	       ;   //      String	状态1:Yes,状态0:No	满标时间(标的放款时间，标的起息时间)	格式如:2013-08-10 13:10:00标的放款时间，标的起息时间，如果没有起息时间，请提供投资记录最后一笔的投资时间，请不要理解为标最后的的还款完成日期.
             private int  invest_num	  ;    //      Int	Yes	投资次数	这笔借款标有多少个投标记录.
             private Double c_reward	     ;     //      Double	No	续投奖励	继续投标的奖励.
+
+
+    /**
+     * 标的加密
+     * @return
+     */
+           public String getId(){
+               return Base64.encode(DESUntil.encrypt(id,"51qedqwer@sameway"));
+           }
+
+
 }

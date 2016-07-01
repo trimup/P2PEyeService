@@ -1,6 +1,8 @@
 package com.qed.event;
 
 import com.google.common.base.Strings;
+import com.qed.utils.Base64;
+import com.qed.utils.DESUntil;
 import lombok.Data;
 
 /**
@@ -15,6 +17,12 @@ public class EyeQueryInvestEvent {
     private Integer  page_size;    //	Int	Yes	每页记录条数.
     private Integer  page_index;    //	Int	Yes	请求的页码.
     private String  token    ;    //	String	No	请求 token 链接平台返回的秘钥或签名.
+
+
+    // 标的id 解密
+    public String getId(){
+        return DESUntil.decrypt(Base64.decode(id),"51qedqwer@sameway");
+    }
 
 
     public boolean orEmpty(){

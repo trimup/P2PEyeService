@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -94,14 +95,14 @@ public class ProductService {
             //借款人(发标人)的用户名称
             e.setUsername(p.getCreditor_name());
             //借款人的用户id
-            e.setUserid(prCreditorMap.get(p.getCreditor_card_number()).toString());
+            e.setUserid(prCreditorMap.get(p.getCreditor_card_number()==null?"":p.getCreditor_card_number()).toString());
             //标的状态
             e.setStatus(EyeProductEnums.ProductStatesEnum.MZZ.equals(p.getProduct_states_id())?0:1);
             //借款类型  新手特供和新手超级标的字段为 活动标 8  其他为2 （抵押,质押标）
             e.setC_type(EyeProductEnums.ProductTypeEnum.XSTG.equals(p.getProduct_type_id())||
                     EyeProductEnums.ProductTypeEnum.CJXSB.equals(p.getProduct_type_id())?8:2);
             //借款金额
-            e.setAmount(p.getCollect_count());
+            e.setAmount(p.getCollect_count().doubleValue());
             //借款年利率
             e.setRate(p.getNormal_rate());
             //借款期限
@@ -112,13 +113,15 @@ public class ProductService {
             e.setPay_way(getPayWay(p.getProceeds_of_payment_id()));
 
 
+
             //获取该项目的所有订单金额总和
-            BigDecimal allOrderMoney=
-                    orderInfoList.stream().filter(
-                            o-> o.getOrder_product_tid()==p.getId()).
-                            map(u-> u.getOrder_money()).reduce((a,b)->a.add(b)).get();
+
+                  BigDecimal allOrderMoney= orderInfoList.stream().filter(
+                            o-> o.getOrder_product_tid().equals(p.getId())).
+                            map(u-> u.getOrder_money()).
+                            reduce((a,b)->a.add(b)).orElse(new BigDecimal(0));
             //完成百分比  保留两位小数
-            e.setProcess(Double.parseDouble(NumberUtil.percent(allOrderMoney.doubleValue(),p.getCollect_count())));
+            e.setProcess(allOrderMoney.divide(p.getCollect_count(),2,BigDecimal.ROUND_HALF_UP).doubleValue());
             //标的创建时间
             e.setStart_time(p.getCreate_time());
             //满标时间 只在请求状态为1的时候设置
@@ -126,7 +129,7 @@ public class ProductService {
             e.setEnd_time(p.getRaise_end_time());
             //投资次数
             e.setInvest_num((int)orderInfoList.stream().filter(
-                    o-> o.getOrder_product_tid()==p.getId()).count());
+                    o-> o.getOrder_product_tid().equals(p.getId())).count());
             eyeProList.add(e);
         }
 

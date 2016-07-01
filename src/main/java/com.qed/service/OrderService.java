@@ -11,6 +11,7 @@ import com.qed.persistence.OrderInfoMapper;
 import com.qed.persistence.UserAttributeInfoMapper;
 import com.qed.persistence.UserInfoMapper;
 import com.qed.pojo.EyeInvestPojo;
+import com.qed.utils.MD5;
 import com.qed.utils.NumberUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,15 +55,15 @@ public class OrderService {
      * 根据项目id 查询订单信息
      * @return
      */
-    public EyeMsg   getOrderListByPro(EyeQueryInvestEvent event){
+    public EyeMsg   getOrderListByPro(EyeQueryInvestEvent event) throws Exception{
 
         EyeMsg eyeMsg =new EyeMsg();
 
 
         PageHelper.startPage(event.getPage_index(),event.getPage_size());
-        PageHelper.orderBy("create desc");
+        PageHelper.orderBy("create_time desc");
         //根据项目 查询出 已完成的订单
-        List<OrderInfo> orderInfos =orderInfoMapper.selectOrderByPro(event.getId());
+        List<OrderInfo> orderInfos =orderInfoMapper.selectOrderByProID(event.getId());
 
 
         if(null==orderInfos||orderInfos.isEmpty())
@@ -87,8 +88,9 @@ public class OrderService {
             // 用户所在地
             ei.setUseraddress(userAttrMap.get(o.getOrder_user_tid()));
             //用户名
-            String userTelephone=userMap.get(o.getOrder_user_tid()).getTelephone();
-            ei.setUsername(userTelephone.substring(0,2)+"****"+userTelephone.substring(7));
+            UserInfo user=userMap.get(o.getOrder_user_tid());
+            ei.setUsername(user.getTelephone().substring(0,3)+"****"+user.getTelephone().substring(7));
+            ei.setUserid(MD5.sign(user.getTelephone(),user.getIdentity_card(),"utf-8"));
             ei.setType("手动");
             //投标金额
             ei.setMoney(o.getOrder_money().doubleValue());

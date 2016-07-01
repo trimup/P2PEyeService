@@ -24,7 +24,7 @@ public class ProductInfo {
     private String creditor_name; //债权出让人姓名
     private String product_states_id;//项目状态
     private String product_type_id;//项目类型
-    private Double collect_count; //计划募资金额
+    private BigDecimal collect_count; //计划募资金额
     private Double normal_rate;   //借款年利率
     private int time_limit;   //借款期限
     private String creditor_card_number;//债权出让人身份证号码
