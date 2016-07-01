@@ -52,8 +52,8 @@ public class ProductController  extends BaseController {
 
 
     @Cacheable
-    @RequestMapping(value = "/queryProduct", method = {RequestMethod.POST,RequestMethod.GET})
-    public EyeMsg queryProdcut(@RequestBody EyeQueryProductEvent event){
+    @RequestMapping(value = "/queryProduct", method = RequestMethod.GET)
+    public EyeMsg queryProdcut( EyeQueryProductEvent event){
 
         //对参数做限制
         if(event.orEmpty())

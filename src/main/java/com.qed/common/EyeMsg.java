@@ -15,7 +15,7 @@ public class EyeMsg {
     private String result_msg;
     private int page_count;
     private int page_index;
-    private Object loans = "";
+    private Object loans ;
 
     public EyeMsg(int i, String message,int page_count,int page_index) {
         this.result_code = i;

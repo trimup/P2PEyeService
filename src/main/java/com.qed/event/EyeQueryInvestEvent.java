@@ -19,10 +19,7 @@ public class EyeQueryInvestEvent {
     private String  token    ;    //	String	No	请求 token 链接平台返回的秘钥或签名.
 
 
-    // 标的id 解密
-    public String getId(){
-        return DESUntil.decrypt(Base64.decode(id),"51qedqwer@sameway");
-    }
+
 
 
     public boolean orEmpty(){

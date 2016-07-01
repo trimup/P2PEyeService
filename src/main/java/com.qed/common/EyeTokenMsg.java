@@ -10,7 +10,7 @@ public class EyeTokenMsg {
     public static final int SUCCESS = 1;
     public static final int FAIL = -1;
     private int result;
-    private Object data = "";
+    private Object data ;
 
     public EyeTokenMsg(int i,Object data) {
         this.result = i;

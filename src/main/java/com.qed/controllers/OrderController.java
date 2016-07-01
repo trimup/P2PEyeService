@@ -37,8 +37,8 @@ public class OrderController  extends BaseController {
 
 
     @Cacheable
-    @RequestMapping(value = "/queryOrderByPro",   method = {RequestMethod.POST,RequestMethod.GET})
-    public EyeMsg queryOrderByPro(@RequestBody EyeQueryInvestEvent event) throws Exception{
+    @RequestMapping(value = "/queryOrderByPro",   method = RequestMethod.GET)
+    public EyeMsg queryOrderByPro( EyeQueryInvestEvent event) throws Exception{
 
         //对参数做限制
         if(event.orEmpty())

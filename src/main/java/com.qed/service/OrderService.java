@@ -11,6 +11,8 @@ import com.qed.persistence.OrderInfoMapper;
 import com.qed.persistence.UserAttributeInfoMapper;
 import com.qed.persistence.UserInfoMapper;
 import com.qed.pojo.EyeInvestPojo;
+import com.qed.utils.Base64;
+import com.qed.utils.DESUntil;
 import com.qed.utils.MD5;
 import com.qed.utils.NumberUtil;
 import org.slf4j.Logger;
@@ -62,15 +64,20 @@ public class OrderService {
 
         PageHelper.startPage(event.getPage_index(),event.getPage_size());
         PageHelper.orderBy("create_time desc");
+        //解密prodcut_id
+
+
+
+
         //根据项目 查询出 已完成的订单
-        List<OrderInfo> orderInfos =orderInfoMapper.selectOrderByProID(event.getId());
+        List<OrderInfo> orderInfos =orderInfoMapper.selectOrderByProID(deProductId(event.getId()));
 
 
         if(null==orderInfos||orderInfos.isEmpty())
             return new EyeMsg(EyeMsg.FAIL,EyeMsg.FAIL_MSG,0,0);
 
         //查询该用户的用户信息
-        List<UserInfo> userInfos =userInfoMapper.selectUserByProId(event.getId());
+        List<UserInfo> userInfos =userInfoMapper.selectUserByProId(deProductId(event.getId()));
         //根据订单list 查询出所在地
         List<UserAttributeInfo> userAttributeInfos =userAttributeInfoMapper.getUserAttributeInfoById(orderInfos);
         Map<Integer,String> userAttrMap = userAttributeInfos.stream().
@@ -82,7 +89,7 @@ public class OrderService {
         for(OrderInfo o :orderInfos){
             EyeInvestPojo  ei =new EyeInvestPojo();
             //项目id
-            ei.setId(o.getOrder_product_tid().toString());
+            ei.setId(event.getId());
             //  项目url  连接地址
             ei.setLink(String.format(PRODUCT_URL,o.getOrder_product_tid()));
             // 用户所在地
@@ -116,6 +123,12 @@ public class OrderService {
 
         return  eyeMsg;
 
+    }
+
+
+    // 标的id 解密
+    public String deProductId(String id){
+        return DESUntil.decrypt(Base64.decode(id),"51qedqwer@sameway");
     }
 
 

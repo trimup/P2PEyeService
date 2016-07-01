@@ -21,7 +21,7 @@ public interface ProductMapper {
             "date_format(create_time,'%Y-%m-%d %h:%i:%s') create_time ,proceeds_of_payment_id from product_info <where> " +
             "<if test='status !=null'>  <choose> " +
             " <when test ='status == 0'> and create_time &gt;=#{time_from}  and create_time &lt;=#{time_to} </when>" +
-            " <when test ='status == 1'> and  raise_end_time &gt;=#{time_to}  and raise_end_time &lt;=#{time_to} </when>" +
+            " <when test ='status == 1'> and  raise_end_time &gt;=#{time_from}  and raise_end_time &lt;=#{time_to} </when>" +
             " </choose> </if> " +
             "<if test='product_start_time !=null'>  and create_time &gt;=#{product_start_time} </if> "+
             "<if test='product_end_time !=null'>  and create_time &lt;= #{product_end_time} </if> "+
